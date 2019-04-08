@@ -1,2 +1,4 @@
 *.ipynb_checkpoints
 *Untitled*.ipynb
+*.DS_Store
+*.so
