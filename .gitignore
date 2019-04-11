@@ -5,3 +5,4 @@
 *.deb
 *.pyfrs
 *.pyfrm
+*.joblib
