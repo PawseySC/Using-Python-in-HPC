@@ -134,6 +134,7 @@ RUN conda install --quiet --yes \
     'jupyter_nbextensions_configurator' \
     'jupyterhub=0.9.6' \
     'jupyterlab=0.35.4' \
+    'joblib' \
     'matplotlib=3.0*' \
     'nb_conda' \
     'netCDF4' \
@@ -164,6 +165,7 @@ RUN conda install --quiet --yes \
     jupyter labextension install jupyterlab_bokeh@0.6.3 && \
     ipcluster nbextension enable --user && \
     jupyter nbextensions_configurator enable --user && \
+    jupyter nbextension enable spellchecker/main --user && \
     npm cache clean --force && \
     jupyter notebook --generate-config && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \

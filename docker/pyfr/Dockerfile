@@ -1,28 +1,48 @@
-FROM pawsey/hpc-python
+FROM ubuntu:18.04
 
 # Install dependencies
 RUN apt-get update && \
       apt-get -yq dist-upgrade && \
       apt-get install -yq --no-install-recommends \
+        build-essential \
         dirmngr \
+        gdb \
+        gfortran \
+        gnupg \
+        libmetis-dev \
         libopenblas-dev \
+        libscotch-dev \
+        python3-appdirs \
         python3-dev \
-        scotch \
-        metis && \
-      pip install --no-cache-dir \
-        appdirs \
-        appdirs \
-        mako \
-        pytools && \
-      rm -rf ~/.cache/pip
+        python3-mako \
+        python3-pip \
+        python3-pytools \
+        python3-setuptools \
+        unzip \
+        wget && \
+      apt-get clean all && \
+      rm -r /var/lib/apt/lists/*
 
 
-# Install CUDA
+### Build MPICH ###
+ARG MPICH_VERSION="3.1.4"
+ARG MPICH_CONFIGURE_OPTIONS="--enable-fast=all,O3 --prefix=/usr"
+ARG MPICH_MAKE_OPTIONS="-j4"
+WORKDIR /tmp/mpich-build
+RUN wget http://www.mpich.org/static/downloads/${MPICH_VERSION}/mpich-${MPICH_VERSION}.tar.gz \
+      && tar xvzf mpich-${MPICH_VERSION}.tar.gz \
+      && cd mpich-${MPICH_VERSION}  \
+      && ./configure ${MPICH_CONFIGURE_OPTIONS} \
+      && make ${MPICH_MAKE_OPTIONS} \
+      && make install \
+      && ldconfig
+
+
 ### Install CUDA ###
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 WORKDIR /tmp/cuda-build
-ADD cuda-repo-ubuntu1710_9.2.148-1_amd64.deb .
-RUN dpkg -i cuda-repo-ubuntu1710_9.2.148-1_amd64.deb \
+ADD cuda-repo-ubuntu1804_10.1.105-1_amd64.deb .
+RUN dpkg -i cuda-repo-ubuntu1804_10.1.105-1_amd64.deb \
       && apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1710/x86_64/7fa2af80.pub \
       && apt-get update \
       && apt-get install -yq --no-install-recommends cuda \
@@ -30,7 +50,7 @@ RUN dpkg -i cuda-repo-ubuntu1710_9.2.148-1_amd64.deb \
       && rm -r /var/lib/apt/lists/*
 
 
-# Build mpi4py
+### Build mpi4py ###
 ARG MPI4PY_VERSION="3.0.0"
 WORKDIR /tmp
 ADD https://bitbucket.org/mpi4py/mpi4py/downloads/mpi4py-${MPI4PY_VERSION}.tar.gz .
@@ -40,7 +60,7 @@ RUN tar xf mpi4py-${MPI4PY_VERSION}.tar.gz && \
       python3 setup.py install
 
 
-# Install Gimmik
+### Install Gimmik ###
 WORKDIR /tmp/gimmik-build
 ADD https://github.com/vincentlab/GiMMiK/archive/v2.1.tar.gz .
 RUN tar xf v2.1.tar.gz && \
@@ -48,15 +68,15 @@ RUN tar xf v2.1.tar.gz && \
       python3 setup.py install
 
 
-# Install PyFR
+### Install PyFR ###
 WORKDIR /tmp/pyfr-build
-ADD http://www.pyfr.org/download/PyFR-1.8.0.zip && \
-RUN unzip PyFR-1.8.0.zip && \
+RUN wget http://www.pyfr.org/download/PyFR-1.8.0.zip && \
+      unzip PyFR-1.8.0.zip && \
       cd PyFR-1.8.0 && \
       python3 setup.py install
 
 
-# Clean up
+### Clean up ###
 WORKDIR /
-RUN rm -rf /tmp
+RUN rm -rf /tmp/*
 CMD ["/bin/bash"]
