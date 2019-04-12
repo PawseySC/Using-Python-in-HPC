@@ -131,5 +131,5 @@ if ode.comm.rank == 0:
           % (ts.getStepNumber(), ts.getStepRejections(), ts.getSNESFailures(),
              ts.getSNESIterations(), ts.getKSPIterations()))
 
-#if OptDB.getBool('plot_history', True) and ode.comm.rank == 0:
-#    ode.plotHistory()
+if OptDB.getBool('plot_history', True) and ode.comm.rank == 0:
+    ode.plotHistory()

@@ -11,7 +11,6 @@ RUN apt-get update && \
         gnupg \
         libmetis-dev \
         libopenblas-dev \
-        libscotch-dev \
         python3-appdirs \
         python3-dev \
         python3-mako \
@@ -66,6 +65,16 @@ ADD https://github.com/vincentlab/GiMMiK/archive/v2.1.tar.gz .
 RUN tar xf v2.1.tar.gz && \
       cd GiMMiK-2.1 && \
       python3 setup.py install
+
+
+### Install PyCUDA
+ENV PATH=/usr/local/cuda/bin:$PATH
+WORKDIR /tmp/pycuda-build
+ADD https://files.pythonhosted.org/packages/58/33/cced4891eddd1a3ac561ff99081019fddc7838a07cace272c941e3c2f915/pycuda-2018.1.1.tar.gz .
+RUN tar xf pycuda-2018.1.1.tar.gz && \
+      cd pycuda-2018.1.1 && \
+      python3 configure.py --cuda-root=/usr/local/cuda && \
+      make install
 
 
 ### Install PyFR ###

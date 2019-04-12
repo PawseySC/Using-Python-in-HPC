@@ -120,6 +120,7 @@ RUN cd /tmp && \
 # Do all this in a single RUN command to avoid duplicating all of the
 # files across image layers when the permissions change
 RUN conda install --quiet --yes \
+    'astropy' \
     'beautifulsoup4=4.7.*' \
     'bokeh=1.0*' \
     'cloudpickle=0.8*' \
@@ -143,6 +144,7 @@ RUN conda install --quiet --yes \
     'numexpr=2.6*' \
     'pandas=0.24*' \
     'patsy=0.5*' \
+    'prettytable' \
     'protobuf=3.7.*' \
     'pytables' \
     'rise' \
@@ -165,6 +167,8 @@ RUN conda install --quiet --yes \
     jupyter labextension install jupyterlab_bokeh@0.6.3 && \
     ipcluster nbextension enable --user && \
     jupyter nbextensions_configurator enable --user && \
+    pip install jupyter_contrib_nbextensions && \
+    jupyter contrib nbextension install --user && \
     jupyter nbextension enable spellchecker/main --user && \
     npm cache clean --force && \
     jupyter notebook --generate-config && \
