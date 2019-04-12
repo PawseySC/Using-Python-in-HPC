@@ -1,0 +1,3 @@
+To run this petsc4py demo with the hpc-jupyter container use the following command:
+
+docker run -w /home/joyvan -v `pwd`:/home/joyvan bskjerven/hpc-jupyter python ./petsc_heat.py
