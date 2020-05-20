@@ -1,4 +1,4 @@
-name: materials-example
+name: Using-Python-in-HPC
 channels:
   - conda-forge
 dependencies:
@@ -8,6 +8,7 @@ dependencies:
   - matplotlib
   - nbresuse
   - numpy
+  - scipy
   - pandas
   - python=3
   - psutil
