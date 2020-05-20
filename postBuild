@@ -1,0 +1,7 @@
+jupyter labextension install \
+  @jupyter-widgets/jupyterlab-manager \
+  jupyter-matplotlib \
+  jupyterlab-topbar-extension \
+  jupyterlab-system-monitor \
+  jupyterlab-topbar-text
+  
