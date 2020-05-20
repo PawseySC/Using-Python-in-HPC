@@ -14,6 +14,6 @@ This repository contains a set of Jupyter Notebooks showcasing Python features o
 
 ## Open the notebooks online
 
-Render the notebooks on [Jupyter NBViewer](https://nbviewer.jupyter.org/github/PawseySC/Using-Python-in-HPC/tree/master/notebooks/)
+Render the notebooks on [Jupyter NBViewer](https://nbviewer.jupyter.org/github/PawseySC/Using-Python-in-HPC/tree/lachlan-dev/notebooks/)
 
-Interact with the notebooks on [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PawseySC/Using-Python-in-HPC/master)
+Interact with the notebooks on [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/PawseySC/Using-Python-in-HPC/lachlan-dev)
