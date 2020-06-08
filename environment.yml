@@ -12,3 +12,13 @@ dependencies:
   - pandas
   - python=3
   - psutil
+  - astropy
+  - beautifulsoup4=4.7.*
+  - bokeh=1.0*
+  - cloudpickle=0.8*
+  - blas=*=openblas
+  - cython=0.29*
+  - dask=1.1.*
+  - dill=0.2*
+  - h5py=2.9*
+  - hdf5=1.10*
