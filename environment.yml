@@ -1,6 +1,8 @@
 name: Using-Python-in-HPC
 channels:
   - conda-forge
+  - anaconda
+  - kayarre
 dependencies:
   - ipympl
   - ipywidgets
@@ -43,4 +45,7 @@ dependencies:
   - tini=0.18.0
   - vincent=0.4.*
   - xlrd
+  - petsc4py
+  - mpi4py
+  - pyfr
   
